@@ -30,5 +30,8 @@ Demo using spring boot 2 for mutual (X.509) authentication.
 * Sample HTTPS Get Request
 ![](img/run.png)
 
+* What is happening
+![](img/mutual-auth-demo.png)
+
 
 
