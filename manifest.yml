@@ -1,0 +1,7 @@
+---
+applications:
+- name: mutual-auth-server
+  memory: 1G
+  instances: 1
+  random-route: true
+  path: ./target/mutual-auth-server-0.0.1-SNAPSHOT.jar

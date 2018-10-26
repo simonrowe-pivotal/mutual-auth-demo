@@ -1,5 +1,7 @@
 package com.example.mutualauthserver;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +31,8 @@ import java.util.Map;
 @RestController
 public class MutualAuthServerApplication extends WebSecurityConfigurerAdapter {
 
+    private static final Logger LOG = LoggerFactory.getLogger(MutualAuthServerApplication.class);
+
     public static void main(String[] args) {
         SpringApplication.run(MutualAuthServerApplication.class, args);
     }
@@ -55,7 +59,7 @@ public class MutualAuthServerApplication extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/headers");
+        web.ignoring().antMatchers("/headers", "actuator/**");
     }
 
 
@@ -66,6 +70,7 @@ public class MutualAuthServerApplication extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         return (String username) -> {
             if (username.equals("client")) {
+                LOG.debug("MutualAuthApp: trying to find a user for: " + username);
                 return new User(username, "",
                         AuthorityUtils
                                 .commaSeparatedStringToAuthorityList("ROLE_USER"));
@@ -84,6 +89,7 @@ public class MutualAuthServerApplication extends WebSecurityConfigurerAdapter {
     @PreAuthorize("hasRole('ROLE_USER')")
     public String user(Principal principal) {
         Authentication auth = (Authentication) principal;
+        LOG.debug("MutualAuthApp is {} " , auth);
         return String.valueOf(auth.getCredentials());
     }
 

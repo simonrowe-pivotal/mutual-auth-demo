@@ -29,9 +29,15 @@ Demo using spring boot 2 for mutual (X.509) authentication.
 
 * Sample HTTPS Get Request
 ![](img/run.png)
+Or use curl:
+```curl -k -v --key client.key --cert cert-signed.crt https://localhost:8443 --insecure```
+```curl -k -v --key client.key --cert cert-signed.crt https://localhost:8443/headers --insecure```
+```curl -k -v --key client.key --cert cert-signed.crt https://mutual-auth-server.cfapps.lab01.pcf.pw```
+```curl -k -v --key client.key --cert cert-signed.crt https://mutual-auth-server.cfapps.lab01.pcf.pw/headers```
 
 * What is happening
 ![](img/mutual-auth-demo.png)
+
 
 
 
