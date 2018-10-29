@@ -3,8 +3,8 @@ Demo using spring boot 2 for mutual (X.509) authentication.
 
 ### Generating Client Certificates
 
-1. Generate the client keystore: ``` keytool -genkey -alias bmc -keyalg RSA -keystore keyStore.jks -keysize 2048```
-2. Generate a CA cert and key: ```openssl req -new -x509 -keyout ca-key -out ca-cert.crt ```
+1. Generate the client keystore: ``` keytool -genkey -alias csr -keyalg RSA -keystore keyStore.jks -keysize 2048```
+2. Generate a CA cert and key: ```openssl req -new -x509 -keyout ca-key.key -out ca-cert.crt ```
 3. Generate a CSR (make sure you set the CN to client *as this demo will depend on that*): ```keytool -keystore keystore.jks -alias csr -certreq -file csr ```
 4. Sign the cert: ```openssl x509 -req -CA ca-cert.crt -CAkey ca-key.key -in csr -out cert-signed.crt -days 365 -CAcreateserial -passin pass:yourpass ```
 5. Import CA cert into keystore: ``` keytool -keystore keystore.jks -alias CARoot -import -file ca-cert.crt```
